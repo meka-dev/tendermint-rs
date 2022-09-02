@@ -59,9 +59,49 @@ pub struct PingRequest {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PingResponse {
 }
+/// SignMekatekBuildBlockRequest is a request to sign a MektatekBuildBlockRequest
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SignMekatekBuildBlockRequest {
+    #[prost(string, tag="1")]
+    pub chain_id: ::prost::alloc::string::String,
+    #[prost(int64, tag="2")]
+    pub height: i64,
+    #[prost(string, tag="3")]
+    pub validator_addr: ::prost::alloc::string::String,
+    #[prost(int64, tag="4")]
+    pub max_bytes: i64,
+    #[prost(int64, tag="5")]
+    pub max_gas: i64,
+    #[prost(bytes="vec", repeated, tag="6")]
+    pub txs: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+}
+/// SignMekatekBuildBlockRequestResponse is response containing the signature of a SignMekatekBuildBlockRequest or an error
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SignMekatekBuildBlockRequestResponse {
+    #[prost(bytes="vec", tag="1")]
+    pub signature: ::prost::alloc::vec::Vec<u8>,
+    #[prost(message, optional, tag="2")]
+    pub error: ::core::option::Option<RemoteSignerError>,
+}
+/// SignMekatekRegisterChallenge is a request to sign a MektatekRegisterChallenge
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SignMekatekRegisterChallenge {
+    #[prost(bytes="vec", tag="1")]
+    pub challenge: ::prost::alloc::vec::Vec<u8>,
+    #[prost(string, tag="2")]
+    pub chain_id: ::prost::alloc::string::String,
+}
+/// SignMekatekRegisterChallengeResponse is response containing the signature of a SignMekatekRegisterChallenge or an error
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SignMekatekRegisterChallengeResponse {
+    #[prost(bytes="vec", tag="1")]
+    pub signature: ::prost::alloc::vec::Vec<u8>,
+    #[prost(message, optional, tag="2")]
+    pub error: ::core::option::Option<RemoteSignerError>,
+}
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Message {
-    #[prost(oneof="message::Sum", tags="1, 2, 3, 4, 5, 6, 7, 8")]
+    #[prost(oneof="message::Sum", tags="1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12")]
     pub sum: ::core::option::Option<message::Sum>,
 }
 /// Nested message and enum types in `Message`.
@@ -84,6 +124,14 @@ pub mod message {
         PingRequest(super::PingRequest),
         #[prost(message, tag="8")]
         PingResponse(super::PingResponse),
+        #[prost(message, tag="9")]
+        SignMekatekBuildBlockRequest(super::SignMekatekBuildBlockRequest),
+        #[prost(message, tag="10")]
+        SignMekatekBuildBlockRequestResponse(super::SignMekatekBuildBlockRequestResponse),
+        #[prost(message, tag="11")]
+        SignMekatekRegisterChallengeRequest(super::SignMekatekRegisterChallenge),
+        #[prost(message, tag="12")]
+        SignMekatekRegisterChallengeResponse(super::SignMekatekRegisterChallengeResponse),
     }
 }
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]

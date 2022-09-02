@@ -1,12 +1,12 @@
 /// Tendermint protobuf version
 
 /// Tendermint repository URL.
-pub const TENDERMINT_REPO: &str = "https://github.com/tendermint/tendermint";
+pub const TENDERMINT_REPO: &str = "https://github.com/meka-dev/tendermint";
 // Commitish formats:
 // Tag: v0.34.0-rc4
 // Branch: master
 // Commit ID (full length): d7d0ffea13c60c98b812d243ba5a2c375f341c15
-pub const TENDERMINT_COMMITISH: &str = "v0.34.20";
+pub const TENDERMINT_COMMITISH: &str = "v0.34.19-mekatek";
 
 /// Predefined custom attributes for message annotations
 const PRIMITIVE_ENUM: &str = r#"#[derive(::num_derive::FromPrimitive, ::num_derive::ToPrimitive)]"#;
