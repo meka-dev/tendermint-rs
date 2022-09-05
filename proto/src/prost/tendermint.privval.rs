@@ -59,9 +59,9 @@ pub struct PingRequest {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PingResponse {
 }
-/// SignMekatekBuildBlockRequest is a request to sign a MektatekBuildBlockRequest
+/// MekatekBuild represents a request for Mekatek to build a block.
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct SignMekatekBuildBlockRequest {
+pub struct MekatekBuild {
     #[prost(string, tag="1")]
     pub chain_id: ::prost::alloc::string::String,
     #[prost(int64, tag="2")]
@@ -72,30 +72,47 @@ pub struct SignMekatekBuildBlockRequest {
     pub max_bytes: i64,
     #[prost(int64, tag="5")]
     pub max_gas: i64,
-    #[prost(bytes="vec", repeated, tag="6")]
-    pub txs: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
-}
-/// SignMekatekBuildBlockRequestResponse is response containing the signature of a SignMekatekBuildBlockRequest or an error
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct SignMekatekBuildBlockRequestResponse {
-    #[prost(bytes="vec", tag="1")]
+    #[prost(bytes="vec", tag="6")]
+    pub txs_hash: ::prost::alloc::vec::Vec<u8>,
+    #[prost(bytes="vec", tag="7")]
     pub signature: ::prost::alloc::vec::Vec<u8>,
+}
+/// SignMekatekBuildRequest is a request to sign a MektatekBuildBlockRequest
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SignMekatekBuildRequest {
+    #[prost(message, optional, tag="1")]
+    pub build: ::core::option::Option<MekatekBuild>,
+}
+/// SignedMekatekBuildResponse is response containing a signed MekatekBuild or an error
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SignedMekatekBuildResponse {
+    #[prost(message, optional, tag="1")]
+    pub build: ::core::option::Option<MekatekBuild>,
     #[prost(message, optional, tag="2")]
     pub error: ::core::option::Option<RemoteSignerError>,
 }
-/// SignMekatekRegisterChallenge is a request to sign a MektatekRegisterChallenge
+/// MekatekChallenge is a registration challenge that validators must sign in order to authenticate with
+/// Mekatek.
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct SignMekatekRegisterChallenge {
-    #[prost(bytes="vec", tag="1")]
-    pub challenge: ::prost::alloc::vec::Vec<u8>,
-    #[prost(string, tag="2")]
+pub struct MekatekChallenge {
+    #[prost(string, tag="1")]
     pub chain_id: ::prost::alloc::string::String,
-}
-/// SignMekatekRegisterChallengeResponse is response containing the signature of a SignMekatekRegisterChallenge or an error
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct SignMekatekRegisterChallengeResponse {
-    #[prost(bytes="vec", tag="1")]
+    #[prost(bytes="vec", tag="2")]
+    pub challenge: ::prost::alloc::vec::Vec<u8>,
+    #[prost(bytes="vec", tag="3")]
     pub signature: ::prost::alloc::vec::Vec<u8>,
+}
+/// SignMekatekChallengeRequest is a request to sign a MektatekChallenge
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SignMekatekChallengeRequest {
+    #[prost(message, optional, tag="1")]
+    pub challenge: ::core::option::Option<MekatekChallenge>,
+}
+/// SignedMekatekChallengeResponse is response containing a signed MekatekChallenge or an error
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SignedMekatekChallengeResponse {
+    #[prost(message, optional, tag="1")]
+    pub challenge: ::core::option::Option<MekatekChallenge>,
     #[prost(message, optional, tag="2")]
     pub error: ::core::option::Option<RemoteSignerError>,
 }
@@ -125,13 +142,13 @@ pub mod message {
         #[prost(message, tag="8")]
         PingResponse(super::PingResponse),
         #[prost(message, tag="9")]
-        SignMekatekBuildBlockRequest(super::SignMekatekBuildBlockRequest),
+        SignMekatekBuildRequest(super::SignMekatekBuildRequest),
         #[prost(message, tag="10")]
-        SignMekatekBuildBlockRequestResponse(super::SignMekatekBuildBlockRequestResponse),
+        SignedMekatekBuildResponse(super::SignedMekatekBuildResponse),
         #[prost(message, tag="11")]
-        SignMekatekRegisterChallengeRequest(super::SignMekatekRegisterChallenge),
+        SignMekatekChallengeRequest(super::SignMekatekChallengeRequest),
         #[prost(message, tag="12")]
-        SignMekatekRegisterChallengeResponse(super::SignMekatekRegisterChallengeResponse),
+        SignedMekatekChallengeResponse(super::SignedMekatekChallengeResponse),
     }
 }
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
